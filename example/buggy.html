@@ -28,7 +28,7 @@
     show();
   };
   document.getElementById('boom').onclick = () => {
-    if (Math.random() < 0.3) inventory.items.push('sword');            // bug 2: inventory is undefined
+    inventory.items.push('sword');                                     // bug 2: inventory is undefined
   };
   // bug 3: the blue "Power" tile looks like a button but has no handler
   window.game = { get over() { return over; } };
