@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shakespeare demo — a page with three planted bugs</title>
+<style>
+  body { font: 18px/1.5 system-ui, sans-serif; background: #fdf8ee; color: #222; margin: 0; padding: 32px; }
+  button, .tile { font: inherit; padding: 12px 20px; border-radius: 8px; border: 2px solid #333; background: #ffd66b; margin: 6px; }
+  .tile { display: inline-block; background: #9fd3ff; }
+  #log { margin-top: 16px; color: #555; }
+</style>
+</head>
+<body>
+<h2 id="stage">Stage 1</h2>
+<p>Three bugs are planted here. Run the monkey and see which ones it finds.</p>
+<button class="go" id="next">Next stage</button>
+<button id="boom">Inventory</button>
+<span class="tile">Power ⚡</span>
+<div id="log"></div>
+<script>
+  let stage = 1, over = false;
+  const show = () => document.getElementById('stage').textContent = 'Stage ' + stage;
+  document.getElementById('next').onclick = () => {
+    stage++;
+    if (stage === 3) document.getElementById('next').disabled = true;   // bug 1: dead end, stage 3 never finishes
+    if (stage > 3) over = true;
+    show();
+  };
+  document.getElementById('boom').onclick = () => {
+    if (Math.random() < 0.3) inventory.items.push('sword');            // bug 2: inventory is undefined
+  };
+  // bug 3: the blue "Power" tile looks like a button but has no handler
+  window.game = { get over() { return over; } };
+</script>
+</body>
+</html>
